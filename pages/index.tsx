@@ -33,6 +33,7 @@ const HomePage:NextPage<Props> = ({ pokemons }) =>{
 export const getStaticProps: GetStaticProps = async (ctx) => {
   
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151'); 
+  console.log({data});
   const pokemons: SmallPokemon[] = data.results.map((pokemon, index) => {
       const id = index + 1;
       const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
