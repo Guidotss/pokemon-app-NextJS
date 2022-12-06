@@ -21,7 +21,6 @@ interface Props {
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
   const [ isInFavorites, setIsInfavorites ] = useState( localFavorites.existsFavorites(pokemon.id) )
-  console.log(isInFavorites)
   
   const onToggleFavorite = () => {
     localFavorites.toggleFavorites( pokemon.id ); 
@@ -117,11 +116,11 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
   
   const pokemons151: string[] = [...Array(151)].map((value, index) => `${index + 1}`); 
-    
+  
 
   return {
     paths: pokemons151.map(id => ({
-      params: { id }
+      params: {id}
     })),
     fallback: false
   }
