@@ -13,16 +13,13 @@ interface Props{
 }
 
 const HomePage:NextPage<Props> = ({ pokemons }) =>{
+  console.log(pokemons);
+  
   
   
   return(
     <Layout title="Listado de Pokemons">
       <Grid.Container gap={2} justify='flex-start'>
-        {
-          pokemons.map(pokemon => (
-            <PokemonCard key={pokemon.id} pokemon={pokemon}/>
-          ))
-        }
       </Grid.Container>
       
     </Layout>
@@ -30,30 +27,20 @@ const HomePage:NextPage<Props> = ({ pokemons }) =>{
 }
 
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151'); 
-  const pokemons: SmallPokemon[] = data.results.map((pokemon, index) => {
-      const id = index + 1;
-      const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-      return { 
-        ...pokemon, id, img
-      }
-  });
-  
+export const getStaticProps: GetStaticProps = async (ctx) =>{
 
-  
+  /* const data = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151'); 
+  const dataJSON = await data.json();
+  console.log(dataJSON); */
 
 
+  const { data } = await pokeApi.get<PokemonListResponse>('pokemon?limit=1');
+  console.log(data);
   
 
-  
-  
-
-  
   return {
     props: {
-      pokemons
+      pokemons: []
     }
   }
 }
